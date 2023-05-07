@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Check if connected to Warp
+if warp-cli status | grep -q 'Connected'; then
+  # If connected, disconnect
+  warp-cli disconnect
+  notify-send "Warp is currently connected. Disconnecting..."
+else
+  # If disconnected, connect
+  warp-cli connect
+  notify-send "Warp is currently disconnected. Connecting..."
+fi

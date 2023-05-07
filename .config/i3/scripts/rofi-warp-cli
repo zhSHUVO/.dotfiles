@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Get current status
+STATUS=$(warp-cli status | awk '{print $3}')
+
+# Define options
+if [[ $STATUS == "Connected" ]]; then
+  OPTIONS=("disconnect" "quit")
+else
+  OPTIONS=("connect" "quit")
+fi
+
+# Display rofi menu
+MENU=$(printf '%s\n' "${OPTIONS[@]}" | rofi -dmenu -p "$STATUS" -theme-str 'window {width: 7%; }' -theme-str 'listview {lines:2;scrollbar: false;}' -font font:"Noto Sans Regular 10";)
+
+# Handle selected option
+case $MENU in
+  "connect")
+    warp-cli connect
+    notify-send "Warp is currently disconnected. Connecting..."
+    ;;
+  "disconnect")
+    warp-cli disconnect
+    notify-send "Warp is currently connected. Disconnecting..."
+    ;;
+  "Quit")
+    exit 0
+    ;;
+esac
