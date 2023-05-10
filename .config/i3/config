@@ -324,7 +324,7 @@ exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id ~/.screenlayout/monitor.sh
 
 # set wallpaper
-exec --no-startup-id sleep 1 && feh --bg-fill ~/Backup/Wallpaper/Dark/IMG_20200618_053933.jpg
+exec --no-startup-id sleep 1 && feh --bg-fill ~/Backup/Wallpaper/Dark/Screenshot_rss_gtm_bayro_6_rize_homespace_fm7_12-1-122-20-4-23.png
 
 # set powersavings for display:
 #exec --no-startup-id xset s 480 dpms 600 600 600
@@ -353,7 +353,7 @@ exec --no-startup-id dunst
 
 
 # Autostart apps as you like
-exec --no-startup-id sleep 3 qbittorrent
+# exec --no-startup-id qbittorrent
 exec --no-startup-id corectrl
 
 ###############

@@ -17,30 +17,41 @@ WEATHER_RESPONSE=$(wget -qO- "${URL}")
 
 WEATHER_CONDITION=$(echo $WEATHER_RESPONSE | jq '.weather[0].main' | sed 's/"//g')
 WEATHER_DESCRIPTION=$(echo $WEATHER_RESPONSE | jq '.weather[0].description' | sed 's/"//g' | sed 's/\b\(.\)/\u\1/g')
-WEATHER_TEMP=$(echo $WEATHER_RESPONSE | jq '.main.temp')
-WIND_DIR=$( echo "$WEATHER_RESPONSE" | jq '.wind.deg')
-WIND_SPEED=$( echo "$WEATHER_RESPONSE" | jq '.wind.speed')
 
-WIND_SPEED=$(awk "BEGIN {print 60*60*$WIND_SPEED/1000}")
-WIND_DIR=$(awk "BEGIN {print int(($WIND_DIR % 360)/22.5)}")
-DIR_ARRAY=( N NNE NE ENE E ESE SE SSE S SSW SW WSW W WNW NW NNW N )
-WIND_DIR=${DIR_ARRAY[WIND_DIR]}
+WEATHER_TEMP=$(echo $WEATHER_RESPONSE | jq -r '.main.temp' | awk '{printf("%.1f",$1)}')
+WEATHER_FEELING=$(echo $WEATHER_RESPONSE | jq -r '.main.feels_like' | awk '{printf("%.1f",$1)}')
+
+# WIND_DIR=$( echo "$WEATHER_RESPONSE" | jq '.wind.deg')
+# WIND_SPEED=$( echo "$WEATHER_RESPONSE" | jq '.wind.speed')
+
+# WIND_SPEED=$(awk "BEGIN {print 60*60*$WIND_SPEED/1000}")
+# WIND_DIR=$(awk "BEGIN {print int(($WIND_DIR % 360)/22.5)}")
+# DIR_ARRAY=( N NNE NE ENE E ESE SE SSE S SSW SW WSW W WNW NW NNW N )
+# WIND_DIR=${DIR_ARRAY[WIND_DIR]}
 
 case $WEATHER_CONDITION in
   'Clouds')
-    WEATHER_ICON=""
+    WEATHER_ICON=" "
+    ;;
+  'Thunderstorm')
+    WEATHER_ICON=" "
+    ;;
+  'Drizzle')
+    WEATHER_ICON=" "
     ;;
   'Rain')
-    WEATHER_ICON=""
+    WEATHER_ICON=" "
     ;;
   'Snow')
-    WEATHER_ICON=""
+    WEATHER_ICON=" "
     ;;
   *)
-    WEATHER_ICON=""
+    WEATHER_ICON=" "
     ;;
 esac
 
 #echo "${WEATHER_ICON}  ${WEATHER_TEMP}°C, ${WIND_SPEED} km/h ${WIND_DIR}"
 # echo "${WEATHER_ICON}  ${WEATHER_TEMP}°C"
-echo "${WEATHER_ICON}  ${WEATHER_DESCRIPTION}  ${WEATHER_TEMP}°C"
+echo "${WEATHER_ICON} ${WEATHER_TEMP}°C,  ${WEATHER_FEELING}°C"
+
+ 
