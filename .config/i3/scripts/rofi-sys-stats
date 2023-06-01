@@ -1,0 +1,10 @@
+#!/bin/bash
+
+cpu_output=$(perl ~/.config/i3/scripts/cpu)
+gpu_output=$(perl ~/.config/i3/scripts/gpu)
+memory_output=$(bash ~/.config/i3/scripts/memory)
+weather=$(bash ~/.config/i3/scripts/openweather-city)
+
+output="$cpu_output\n$gpu_output\n$memory_output\n$weather"
+
+echo -e "$output" | rofi -dmenu -i -p "sys stats" -theme-str 'window {width: 7%; }' -theme-str 'listview {lines:4;scrollbar: false;}' -font font:"Noto Sans Regular 10";

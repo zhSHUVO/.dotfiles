@@ -1,0 +1,77 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use utf8;
+use Getopt::Long;
+
+binmode(STDOUT, ":utf8");
+
+# default values
+my $t_warn = $ENV{T_WARN} || 70;
+my $t_crit = $ENV{T_CRIT} || 90;
+my $gpu_brand = $ENV{GPU_BRAND} || "AMD";
+my $gpu_usage = -1;
+my $gpu_mem = -1;
+my $gpu_video = -1;
+my $gpu_pcie = -1;
+my $chip = $ENV{SENSOR_CHIP} || "amdgpu-pci-0900";
+my $temperature = -9999;
+my $label_gpu = $ENV{LABEL} || "󰢮  ";
+my $label_temp = $ENV{LABEL_TEMP} || "";
+
+sub help {
+    print "Usage: gpu-temp-load [-w <warning>] [-c <critical>] [--chip <chip>] [-h]\n";
+    print "-w <percent>: warning threshold to become amber\n";
+    print "-c <percent>: critical threshold to become red\n";
+    print "--chip <chip>: sensor chip\n";
+    print "-h: print this help message\n";
+    exit 0;
+}
+
+GetOptions("help|h" => \&help,
+           "w=i"    => \$t_warn,
+           "c=i"    => \$t_crit,
+           "chip=s" => \$chip);
+
+
+# For AMD, get from radeontop
+if ($gpu_brand eq "AMD") {
+    open (AMD, 'radeontop -d - -l 1 |') or die;
+    while (<AMD>) {
+        if (/^.*[gpu] (\d+)\.\d+%.*.*[vram] (\d+)\.\d+%.*$/) {
+            $gpu_usage = $1;
+            $gpu_mem = $2;
+            last;
+        }
+    }
+    close(AMD);
+}
+
+# Get chip temperature
+open (SENSORS, "sensors -u $chip |") or die;
+while (<SENSORS>) {
+    if (/^\s+temp1_input:\s+[\+]*([\-]*\d+\.\d)/) {
+        $temperature = $1;
+        last;
+    }
+}
+close(SENSORS);
+
+# Check if temperature or usage information was found
+if ($gpu_usage eq -1 or $temperature eq -9999) {
+    die 'Cannot find GPU and temperature information';
+}
+
+# Print temperature and usage information
+printf "%s %02.0f%%,  %.1f°C\n", $label_gpu, $gpu_usage, $temperature;
+
+# Print color, if needed
+if ($temperature >= $t_crit || $gpu_usage >= $t_crit || $gpu_mem >= $t_crit || $gpu_video >= $t_crit || $gpu_pcie >= $t_crit) {
+    print "#FF0000\n";
+    exit 33;
+} elsif ($temperature >= $t_warn || $gpu_usage >= $t_warn || $gpu_mem >= $t_warn || $gpu_video >= $t_warn || $gpu_pcie >= $t_warn) {
+    print "#FFFC00\n";
+}
+
+exit 0;
