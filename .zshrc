@@ -115,4 +115,6 @@ precmd_functions+=(add_gap)
 
 alias dotfiles='/usr/bin/git --git-dir=/home/shadow/.dotfiles/ --work-tree=/home/shadow'
 
-alias passgen="node .jspass.js"
+alias passgen="node ~/.jspass.js"
+
+alias i3="code ~/.config/i3"
