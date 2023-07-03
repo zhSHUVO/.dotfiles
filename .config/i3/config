@@ -236,11 +236,13 @@ set $ws10 "10:󰿩   "
 # use workspaces on different displays:
 # where you have to replace VGA-0/HDMI-0 with the names for your displays
 # you can get from xrandr command
-#workspace $ws1 output VGA-0
-#workspace $ws2 output VGA-0
-#workspace $ws3 output HDMI-0
-#workspace $ws4 output HDMI-0
-#workspace $ws5 output HDMI-0
+workspace $ws1 output DisplayPort-1
+workspace $ws2 output DisplayPort-1
+workspace $ws3 output HDMI-A-1
+workspace $ws4 output HDMI-A-1
+workspace $ws5 output DisplayPort-1
+workspace $ws6 output HDMI-A-1
+workspace $ws8 output DisplayPort-1
 
 # bind program to workspace and focus to them on startup:
 assign [class="(?i)xfce4-terminal"] $ws1
@@ -248,7 +250,7 @@ assign [class="(?i)code"] $ws2
 assign [class="(?i)brave"] $ws3
 assign [class="Thunar"] $ws4
 assign [class="mpv"] $ws5
-# assign [class="feh"] $ws5
+assign [class="feh"] $ws5
 # assign [class="(?i)gthumb"] $ws5
 assign [class="(?i)qbittorrent"] $ws6
 assign [class="corectrl"] $ws6
@@ -260,7 +262,7 @@ for_window [class=(?i)code] focus
 for_window [class=(?i)brave] focus
 for_window [class=Thunar] focus
 for_window [class=mpv] focus
-# for_window [class=feh] focus
+for_window [class=feh] focus
 # for_window [class=(?i)gthumb] focus
 for_window [class=(?i)qbittorrent] focus
 for_window [class=corectrl] focus
@@ -324,7 +326,7 @@ exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id ~/.screenlayout/monitor.sh
 
 # set wallpaper
-exec --no-startup-id sleep 1 && feh --bg-fill ~/Backup/Wallpaper/Dark/RDT_20230531_1551548432864084600501502.png
+exec --no-startup-id sleep 1 && feh --bg-fill ~/Backup/Wallpaper/Dark/RDT_20230625_1020325572128683468753944.png ~/Backup/Wallpaper/Dark/Exu-edKXEAU-V8k.png
 
 # set powersavings for display:
 #exec --no-startup-id xset s 480 dpms 600 600 600
@@ -436,10 +438,10 @@ bar {
 		font pango: NotoSans Nerd Font Regular 10
 		status_command i3blocks -c ~/.config/i3/i3blocks.conf
 	    position top
-#	    i3bar_command i3bar --transparency
+	    # i3bar_command i3bar --transparency
 # it could be that you have no primary display set: set one (xrandr --output <output> --primary)
 # reference: https://i3wm.org/docs/userguide.html#_tray_output
-		#tray_output primary
+		tray_output primary
 		tray_padding 7
 
 # When strip_workspace_numbers is set to yes,
