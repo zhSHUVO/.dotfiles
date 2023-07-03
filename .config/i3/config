@@ -437,12 +437,12 @@ client.urgent		    	$urgentred	$urgentred	$white		$yellowbrown	$yellowbrown
 bar {
 		font pango: NotoSans Nerd Font Regular 10
 		status_command i3blocks -c ~/.config/i3/i3blocks.conf
+		output DisplayPort-1
 	    position top
 	    # i3bar_command i3bar --transparency
 # it could be that you have no primary display set: set one (xrandr --output <output> --primary)
 # reference: https://i3wm.org/docs/userguide.html#_tray_output
-		tray_output primary
-		tray_padding 7
+		tray_output none
 
 # When strip_workspace_numbers is set to yes,
 # any workspace that has a name of the form
@@ -469,31 +469,29 @@ strip_workspace_name no
 # https://gist.github.com/lopspower/03fb1cc0ac9f32ef38f4
 # #08052be6 --> e6=90%
 
-# bar {
-#	font pango: Noto Sans Regular 10
-#	status_command i3blocks -c ~/.config/i3/i3blocks-2.conf
-#	i3bar_command i3bar --transparency
-#	output HDMI-0
-#	position bottom
-#
-# When strip_workspace_numbers is set to yes,
-# any workspace that has a name of the form
-# “[n][:][NAME]” will display only the name.
-#strip_workspace_numbers yes
-##strip_workspace_name no
-#
-#	colors {
-#		separator          $purple
-#		background         $darkbluetrans
-#       statusline         $white
+bar {
+		font pango: Noto Sans Regular 10
+		status_command i3blocks -c ~/.config/i3/i3blocks-2.conf
+		output HDMI-A-1
+	    position top
+		tray_output HDMI-A-1
+		tray_padding 7
+		
+strip_workspace_numbers yes
+strip_workspace_name no
 
-#							border			bg				txt			indicator
-#		focused_workspace	$lighterblue	$lighterblue	$darkblue	$purple
-#		active_workspace	$lightdblue		$lightdblue		$darkblue	$purple
-#		inactive_workspace	$darkblue		$darkblue		$lightdblue	$purple
-#		urgent_workspace	$urgentred		$urgentred		$white		$purple
-#	}
-#}
+		    colors {
+		    separator          $purple
+		    background         $grubback
+		    statusline         $white
+			
+#                          		border 		        bg				txt				indicator
+		focused_workspace		$grubborder	   		$grubback		$grubfront		$purple
+		active_workspace		$grubback	      	$grubback		$grubfront		$purple
+		inactive_workspace		$grubback   		$grubback		$grubfront		$purple
+		urgent_workspace		$urgentred	    	$urgentred		$grubfront		$purple
+	}
+}
 
 #####################################
 # Application menu handled by rofi: #
