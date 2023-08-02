@@ -46,7 +46,7 @@ gaps inner 10
 #gaps outer 20
 
 # show window title bars (not officially supported with i3gaps)
-default_border pixel 1
+default_border pixel 2
 default_floating_border pixel
 
 # window title alignment
@@ -72,18 +72,6 @@ bindsym $mod+7    workspace  $ws7
 bindsym $mod+8    workspace  $ws8
 bindsym $mod+9    workspace  $ws9
 bindsym $mod+0    workspace  $ws10
-
-# switch to workspace with numpad keys
-bindcode $mod+87 workspace 1
-bindcode $mod+88 workspace 2
-bindcode $mod+89 workspace 3
-bindcode $mod+83 workspace 4
-bindcode $mod+84 workspace 5
-bindcode $mod+85 workspace 6
-bindcode $mod+79 workspace 7
-bindcode $mod+80 workspace 8
-bindcode $mod+81 workspace 9
-bindcode $mod+90 workspace 10
 
 # move focused container to workspace
 bindsym $mod+Shift+1    move container to workspace  $ws1
@@ -136,9 +124,9 @@ bindsym $mod+Shift+p exec --no-startup-id ~/.config/i3/scripts/powermenu
 
 # Lock the system
 # lock with a picture:
-bindsym $mod+l exec --no-startup-id i3lock -i  /home/shadow/Pictures/Wallpaper/20210823-082745-wb_toyota_gr_supra_s3.png -p default|win -t
+# bindsym $mod+l exec --no-startup-id i3lock -i  /home/shadow/Pictures/Wallpaper/20210823-082745-wb_toyota_gr_supra_s3.png -p default|win -t
 # lock by blurring the screen:
-#bindsym $mod+l exec ~/.config/i3/scripts/blur-lock
+bindsym $mod+l exec ~/.config/i3/scripts/blur-lock
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -211,9 +199,9 @@ bindsym $mod+w exec --no-startup-id /usr/bin/brave
 bindsym $mod+c exec --no-startup-id /usr/bin/code
 bindsym $mod+n exec --no-startup-id /usr/bin/thunar
 
-bindsym --release $mod+shift+s exec --no-startup-id scrot --select --freeze ~/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png -e 'xclip -selection clipboard -t image/png -i $f' && notify-send "Screenshot saved"
+# screenshot
+bindsym $mod+shift+s exec --no-startup-id flameshot gui
 
-bindsym $mod+shift+control+s exec --no-startup-id scrot ~/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png  -e 'xclip -selection clipboard -t image/png -i $f'  && notify-send "Screenshot saved"
 
 ##########################################
 # configuration for workspace behaviour: #
@@ -292,10 +280,10 @@ for_window [class=(?i)steam] focus
 # For modifications, it can be copied to ~/.config/picom/picom.conf or ~/.config/picom.conf
 # install picom package (yay -S picom)
 # start using default config 
-#exec_always --no-startup-id picom -b
+# exec_always --no-startup-id picom -b
 #
 # for custom config:
-#exec_always --no-startup-id picom --config  ~/.config/picom.conf
+# exec_always --no-startup-id picom --config  ~/.config/picom.conf
 
 #############################################
 # autostart applications/services on login: #
@@ -326,7 +314,7 @@ exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id ~/.screenlayout/monitor.sh
 
 # set wallpaper
-exec --no-startup-id sleep 1 && feh --bg-fill ~/Backup/Wallpaper/Dark/RDT_20230625_1020325572128683468753944.png ~/Backup/Wallpaper/Dark/Exu-edKXEAU-V8k.png
+exec --no-startup-id sleep 1 && feh --bg-fill ~/Backup/Wallpaper/Dark/358146589_10221553037008618_2611493198932446891_n.jpg ~/Backup/Wallpaper/Dark/zizpi798r59b1.jpg
 
 # set powersavings for display:
 #exec --no-startup-id xset s 480 dpms 600 600 600
@@ -406,27 +394,30 @@ for_window [window_role="About"] floating enable
 ######################################
 
 # Define colors variables:
-set $darkbluetrans	#08052be6
-set $darkblue		#08052b
-set $lightblue		#5294e2
-set $urgentred		#e53935
-set $white			#ffffff
-set $black			#000000
-set $purple			#e345ff
-set $darkgrey		#383c4a
-set $grey			#b0b5bd
-set $mediumgrey		#8b8b8b
-set $yellowbrown	#e1b700
-set $grubback		#282828
-set $grubfront		#ebdbb2
-set $grubborder		#A89984
+# set $darkbluetrans	#08052be6
+# set $darkblue		#08052b
+# set $lightblue		#5294e2
+# set $urgentred		#e53935
+# set $white			#ffffff
+# set $black			#000000
+# set $purple			#e345ff
+# set $darkgrey		#383c4a
+# set $grey			#b0b5bd
+# set $mediumgrey		#8b8b8b
+# set $yellowbrown	#e1b700
+# set $grubback		#282828
+# set $grubfront		#ebdbb2
+# set $grubborder		#A89984
 
 # define colors for windows:
-#class		        		border		bground		text		indicator		child_border
-client.focused		    	$grubborder	$grubback	$white		$grubfront		$grubfront
-client.unfocused	    	$grubback	$grubback	$grey		$darkgrey		$darkgrey
-client.focused_inactive		$grubback	$grubback	$grey		$black			$darkgrey
-client.urgent		    	$urgentred	$urgentred	$white		$yellowbrown	$yellowbrown
+# class                 border  bground text    indicator child_border
+client.focused          #6272A4 #6272A4 #f8f8f2 #6272A4   #6272A4
+client.focused_inactive #44475A #44475A #f8f8f2 #44475A   #44475A
+client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
+client.urgent           #44475A #FF5555 #f8f8f2 #FF5555   #FF5555
+client.placeholder      #282A36 #282A36 #f8f8f2 #282A36   #282A36
+
+client.background       #f8f8f2
 
 ############################################
 # bar settings (input comes from i3blocks) #
@@ -439,10 +430,10 @@ bar {
 		status_command i3blocks -c ~/.config/i3/i3blocks.conf
 		output DisplayPort-1
 	    position top
+		tray_output none
 	    # i3bar_command i3bar --transparency
 # it could be that you have no primary display set: set one (xrandr --output <output> --primary)
 # reference: https://i3wm.org/docs/userguide.html#_tray_output
-		tray_output none
 
 # When strip_workspace_numbers is set to yes,
 # any workspace that has a name of the form
@@ -451,15 +442,15 @@ strip_workspace_numbers yes
 strip_workspace_name no
 
 		    colors {
-		    separator          $purple
-		    background         $grubback
-		    statusline         $white
-			
-#                          		border 		        bg				txt				indicator
-		focused_workspace		$grubborder	   		$grubback		$grubfront		$purple
-		active_workspace		$grubback	      	$grubback		$grubfront		$purple
-		inactive_workspace		$grubback   		$grubback		$grubfront		$purple
-		urgent_workspace		$urgentred	    	$urgentred		$grubfront		$purple
+    background #282A36
+    statusline #f8f8f2
+    separator  #44475A
+#                      		border		bg			txt
+    focused_workspace  		#6272A4		#282A36		#f8f8f2
+    active_workspace   		#282A36		#282A36		#f8f8f2
+    inactive_workspace 		#282A36		#282A36		#BFBFBF
+    urgent_workspace   		#FF5555		#FF5555		#f8f8f2
+    binding_mode       		#FF5555		#FF5555		#f8f8f2
 	}
 }
 
@@ -476,20 +467,21 @@ bar {
 	    position top
 		tray_output HDMI-A-1
 		tray_padding 7
+        # i3bar_command i3bar --transparency
 		
 strip_workspace_numbers yes
 strip_workspace_name no
 
 		    colors {
-		    separator          $purple
-		    background         $grubback
-		    statusline         $white
-			
-#                          		border 		        bg				txt				indicator
-		focused_workspace		$grubborder	   		$grubback		$grubfront		$purple
-		active_workspace		$grubback	      	$grubback		$grubfront		$purple
-		inactive_workspace		$grubback   		$grubback		$grubfront		$purple
-		urgent_workspace		$urgentred	    	$urgentred		$grubfront		$purple
+    background #282A36
+    statusline #f8f8f2
+    separator  #44475A
+#                      		border		bg			txt
+    focused_workspace  		#6272A4		#282A36 	#f8f8f2
+    active_workspace   		#282A36		#282A36 	#f8f8f2
+    inactive_workspace 		#282A36		#282A36 	#BFBFBF
+    urgent_workspace   		#FF5555		#FF5555 	#f8f8f2
+    binding_mode       		#FF5555		#FF5555 	#f8f8f2
 	}
 }
 
@@ -497,26 +489,29 @@ strip_workspace_name no
 # Application menu handled by rofi: #
 #####################################
 
-## rofi bindings fancy application menu ($mod+d /F9 optional disabled)
-bindsym $mod+d exec --no-startup-id rofi -modi drun -show drun \
-		-config ~/.config/rofi/rofidmenu.rasi
+## dmenu
+bindsym $mod+d exec --no-startup-id "dmenu_run -nf '#f8f8f2' -nb '#282A36' -sb '#6272A4' -sf '#f8f8f2' -fn 'NotoSans Nerd Font Regular 10' -p 'launch'"
+
+## rofi bindings fancy application menu ($mod+Shift+d /F9 optional disabled)
+bindsym $mod+Shift+d exec --no-startup-id rofi -modi drun -show drun 
 
 ## rofi bindings for window menu ($mod+t /F10 optional disabled)
-bindsym $mod+g exec --no-startup-id rofi -show window \
-		-config ~/.config/rofi/rofidmenu.rasi
+bindsym $mod+g exec --no-startup-id rofi -show window 
 
 ## rofi bindings to manage clipboard (install rofi-greenclip from the AUR)
 exec --no-startup-id greenclip daemon>/dev/null
-bindsym $mod+v exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard \
-		-config ~/.config/rofi/rofidmenu.rasi
+bindsym $mod+v exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard
 
 ## rofi binding for rofi-emoji
 bindsym $mod+e exec --no-startup-id rofi -modi emoji -show emoji
 
 ## rofi binding for sys-stats
-bindsym $mod+shift+e exec --no-startup-id ~/.config/i3/scripts/rofi-sys-stats
+# bindsym $mod+shift+e exec --no-startup-id ~/.config/i3/scripts/rofi-sys-stats
 
 ## disconnect warp
 exec --no-startup-id warp-cli disconnect
 # bindsym $mod+shift+m exec --no-startup-id ~/.config/i3/scripts/warp-cli
 bindsym $mod+Shift+m exec --no-startup-id ~/.config/i3/scripts/rofi-warp-cli
+
+## monitors
+bindsym $mod+mod1+Control+m exec --no-startup-id ~/.screenlayout/monitor.sh

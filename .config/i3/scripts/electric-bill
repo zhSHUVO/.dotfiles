@@ -1,8 +1,9 @@
 #!/bin/bash
 
 AccountNum=`cat ~/.accountNum`
+MeterNum=`cat ~/.meterNum`
 
-API_URL="http://prepaid.desco.org.bd/api/tkdes/customer/getBalance?accountNo=${AccountNum}"
+API_URL="http://prepaid.desco.org.bd/api/tkdes/customer/getBalance?accountNo=${AccountNum}&meterNo=${MeterNum}"
 
 # Make the API request and store the response
 response=$(curl -s "$API_URL")

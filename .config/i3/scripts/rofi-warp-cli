@@ -11,7 +11,7 @@ else
 fi
 
 # Display rofi menu
-MENU=$(printf '%s\n' "${OPTIONS[@]}" | rofi -dmenu -p "$STATUS" -theme-str 'window {width: 7%; }' -theme-str 'listview {lines:2;scrollbar: false;}' -font font:"Noto Sans Regular 10";)
+MENU=$(printf '%s\n' "${OPTIONS[@]}" | rofi -dmenu -p "$STATUS" -theme-str 'window {width: 10%; }' -theme-str 'listview {lines:2;scrollbar: false;}' -font font:"Noto Sans Regular 10";)
 
 # Handle selected option
 case $MENU in
